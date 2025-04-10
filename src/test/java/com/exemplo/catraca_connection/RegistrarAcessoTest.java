@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import com.zktecodevice.catraca_connection.CatracaHttpClient;
+import com.zktecodevice.turnstile_connection.TurnstileHttpClient;
 
 public class RegistrarAcessoTest {
 
@@ -16,7 +16,7 @@ public class RegistrarAcessoTest {
         int porta = 1;
 
         try {
-            CatracaHttpClient.registrarAcesso(ipCatraca, (long) porta);
+            TurnstileHttpClient.registerAccess(ipCatraca, (long) porta);
             assertTrue(true);
         } catch (Exception e) {
             fail("Erro ao registrar acesso: " + e.getMessage());
@@ -29,7 +29,7 @@ public class RegistrarAcessoTest {
         int porta = -100;
 
         try {
-            CatracaHttpClient.registrarAcesso(ipCatraca, (long) porta);
+            TurnstileHttpClient.registerAccess(ipCatraca, (long) porta);
             System.out.println("Deveria ter lançado uma exceção para dados inválidos.");
         } catch (IllegalArgumentException e) {
             assertEquals("Parâmetros inválidos para registrar acesso.", e.getMessage());

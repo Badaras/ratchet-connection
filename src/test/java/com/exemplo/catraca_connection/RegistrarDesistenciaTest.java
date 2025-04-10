@@ -1,10 +1,12 @@
 package com.exemplo.catraca_connection;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
-import com.zktecodevice.catraca_connection.CatracaHttpClient;
-
-import static org.junit.jupiter.api.Assertions.*;
+import com.zktecodevice.turnstile_connection.TurnstileHttpClient;
 
 public class RegistrarDesistenciaTest {
 
@@ -14,7 +16,7 @@ public class RegistrarDesistenciaTest {
         int porta = 1;
 
         try {
-            CatracaHttpClient.registrarDesistencia(ipCatraca, (long) porta);
+            TurnstileHttpClient.registerAccess(ipCatraca, (long) porta);
             assertTrue(true);
         } catch (Exception e) {
             fail("Erro ao registrar desistência: " + e.getMessage());
@@ -27,7 +29,7 @@ public class RegistrarDesistenciaTest {
         int porta = 2;
 
         try {
-            CatracaHttpClient.registrarDesistencia(ipCatraca, (long) porta);
+            TurnstileHttpClient.registerAccess(ipCatraca, (long) porta);
             System.out.println("Deveria ter lançado uma exceção para dados inválidos.");
         } catch (IllegalArgumentException e) {
             assertEquals("Parâmetros inválidos para registrar desistência.", e.getMessage());

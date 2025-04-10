@@ -2,17 +2,17 @@ package com.exemplo.catraca_connection;
 
 import org.junit.jupiter.api.Test;
 
-import com.zktecodevice.catraca_connection.CatracaHttpClient;
+import com.zktecodevice.turnstile_connection.TurnstileHttpClient;
 
 public class MonitoramentoCatracasTest {
 
 	@Test
 	public void testValidarCracha() {
-		String ipCatraca = "10.10.7.218";
+		String ipCatraca = "99.99.9.999";
 		int porta = 2;
 		String leitura = "1561567809";
 
-		String resultado = CatracaHttpClient.validarCracha(ipCatraca, (long) porta, leitura);
+		String resultado = TurnstileHttpClient.validateCard(ipCatraca, (long) porta, leitura);
 
 		if (resultado != null && resultado.equalsIgnoreCase("true")) {
 			System.out.println("Pessoa válida!");
