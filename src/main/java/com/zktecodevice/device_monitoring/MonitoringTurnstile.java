@@ -15,6 +15,7 @@ public class MonitoringTurnstile {
     private int connection;
     private String ip;
     private ScheduledExecutorService scheduler;
+    private final Object rtLogLock = new Object();
 
     public MonitoringTurnstile(String ip) throws Exception {
         this.ip = ip;
@@ -64,20 +65,21 @@ public class MonitoringTurnstile {
 
     public void monitorEvent() {
         byte[] buffer = new byte[4096];
-
-        int resultCode = TurnstileSDK.Plcommpro.INSTANCE.GetRTLog(connection, buffer, buffer.length);
-        if (resultCode > 0) {
-            String data = new String(buffer).trim();
-            String[] events = data.split("\r\n");
-            for (String record : events) {
-                processEvent(record);
+        synchronized (rtLogLock) {
+            int resultCode = TurnstileSDK.Plcommpro.INSTANCE.GetRTLog(connection, buffer, buffer.length);
+            if (resultCode > 0) {
+                String data = new String(buffer).trim();
+                String[] events = data.split("\r\n");
+                for (String record : events) {
+                    processEvent(record);
+                }
+            } else if (resultCode == -2) {
+                logger.warn("Lost connection to IP: {}. Attempting to reconnect...", ip);
+                reconnect();
+            } else {
+                logger.error("Unknown error when monitoring events. Return code: {}", resultCode);
+                reconnect();
             }
-        } else if (resultCode == -2) {
-            logger.warn("Lost connection to IP: {}. Attempting to reconnect...", ip);
-            reconnect();
-        } else {
-            logger.error("Unknown error when monitoring events. Return code: {}", resultCode);
-            reconnect();
         }
     }
 
@@ -161,6 +163,7 @@ public class MonitoringTurnstile {
         while (System.currentTimeMillis() - startTime < 10 * 1000) {
             try {
                 byte[] buffer = new byte[4096];
+                synchronized(rtLogLock) {
                 int resultCode = TurnstileSDK.Plcommpro.INSTANCE.GetRTLog(connection, buffer, buffer.length);
                 
                 if (resultCode > 0) {
@@ -196,6 +199,7 @@ public class MonitoringTurnstile {
                 if (passageConfirmed) {
                     break;
                 }
+            }
             } catch (NumberFormatException e) {
                 logger.error("Error when checking passage: {}", e.getMessage());
                 break;
