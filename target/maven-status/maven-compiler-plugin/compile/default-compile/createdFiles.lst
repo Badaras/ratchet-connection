@@ -1,0 +1,5 @@
+com\zktecodevice\device_monitoring\Main.class
+com\zktecodevice\catraca_connection\CatracaHttpClient.class
+com\zktecodevice\device_monitoring\CatracaSDK$Plcommpro.class
+com\zktecodevice\device_monitoring\CatracaSDK.class
+com\zktecodevice\device_monitoring\MonitoramentoCatracas.class
