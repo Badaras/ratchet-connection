@@ -24,7 +24,7 @@ public class MonitoringTurnstile {
     private void connect() throws Exception {
         while (true) {
             String params = "protocol=TCP,ipaddress=" + ip + ",port=4370,timeout=10000,password=";
-            connection = CatracaSDK.Plcommpro.INSTANCE.Connect(params);
+            connection = TurnstileSDK.Plcommpro.INSTANCE.Connect(params);
             if (connection != 0) {
                 logger.info("Successfully connected to the controller at: {} | Connection ID: {}", ip, connection);
                 return;
@@ -37,7 +37,7 @@ public class MonitoringTurnstile {
 
     public void disconnect() {
         if (connection != 0) {
-            CatracaSDK.Plcommpro.INSTANCE.Disconnect(connection);
+            TurnstileSDK.Plcommpro.INSTANCE.Disconnect(connection);
             logger.info("Connection to IP {} closed.", ip);
         }
     }
@@ -65,7 +65,7 @@ public class MonitoringTurnstile {
     public void monitorEvent() {
         byte[] buffer = new byte[4096];
 
-        int resultCode = CatracaSDK.Plcommpro.INSTANCE.GetRTLog(connection, buffer, buffer.length);
+        int resultCode = TurnstileSDK.Plcommpro.INSTANCE.GetRTLog(connection, buffer, buffer.length);
         if (resultCode > 0) {
             String data = new String(buffer).trim();
             String[] events = data.split("\r\n");
@@ -143,7 +143,7 @@ public class MonitoringTurnstile {
     }
     
     private boolean controlDevice(int door, int openTime) {
-        int result = CatracaSDK.Plcommpro.INSTANCE.ControlDevice(connection, 1, door, 1, openTime, 0, "");
+        int result = TurnstileSDK.Plcommpro.INSTANCE.ControlDevice(connection, 1, door, 1, openTime, 0, "");
         if (result >= 0) {
             System.out.println("success");
             return true;
@@ -161,7 +161,7 @@ public class MonitoringTurnstile {
         while (System.currentTimeMillis() - startTime < 10 * 1000) {
             try {
                 byte[] buffer = new byte[4096];
-                int resultCode = CatracaSDK.Plcommpro.INSTANCE.GetRTLog(connection, buffer, buffer.length);
+                int resultCode = TurnstileSDK.Plcommpro.INSTANCE.GetRTLog(connection, buffer, buffer.length);
                 
                 if (resultCode > 0) {
                     String data = new String(buffer).trim();

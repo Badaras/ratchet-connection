@@ -2,7 +2,7 @@ package com.zktecodevice.device_monitoring;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 
-public class CatracaSDK {
+public class TurnstileSDK {
     public interface Plcommpro extends Library {
         Plcommpro INSTANCE = Native.load("plcommpro", Plcommpro.class);
 

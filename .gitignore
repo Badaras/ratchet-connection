@@ -26,3 +26,11 @@
 target/classes/META-INF/maven/com.zktecodevice/catraca-connection/pom.properties
 target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
 target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
+target/classes/com/zktecodevice/device_monitoring/TurnstileSDK.class
+target/classes/com/zktecodevice/device_monitoring/CatracaSDK$Plcommpro.class
+target/classes/com/zktecodevice/device_monitoring/CatracaSDK.class
+target/classes/com/zktecodevice/device_monitoring/MonitoringTurnstile.class
+target/classes/com/zktecodevice/device_monitoring/TurnstileSDK$Plcommpro.class
+target/classes/com/zktecodevice/device_monitoring/CatracaSDK$Plcommpro.class
+target/classes/com/zktecodevice/device_monitoring/CatracaSDK.class
+target/classes/com/zktecodevice/device_monitoring/MonitoringTurnstile.class
